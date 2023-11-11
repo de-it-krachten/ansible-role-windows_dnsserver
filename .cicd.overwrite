@@ -1,0 +1,140 @@
+---
+
+# Generic
+generic:
+  role: ansible-role-windows_dnsserver
+  role_short: windows_dnsserver
+  role_description: |
+    Installs Windows DNS server.
+    Purpose of this role is to build a DNS server to be used for Linux client testing.
+  collections: []
+
+# Dependecies
+dependencies:
+  collections:
+    - ansible.windows
+    - community.windows
+  roles: []
+
+# Supported platforms
+platforms:
+  rhel7:
+    ci: false
+    supported: false
+  rhel8:
+    ci: false
+    supported: false
+  rhel9:
+    ci: false
+    supported: false
+  centos7:
+    ci: false
+    supported: false
+  centos8:
+    ci: false
+    supported: false
+  centos8s:
+    ci: false
+    supported: false
+  centos9s:
+    ci: false
+    supported: false
+  rockylinux8:
+    ci: false
+    supported: false
+  rockylinux9:
+    ci: false
+    supported: false
+  oraclelinux8:
+    ci: false
+    supported: false
+  oraclelinux9:
+    ci: false
+    supported: false
+  almalinux8:
+    ci: false
+    supported: false
+  almalinux9:
+    ci: false
+    supported: false
+  opensuse15:
+    ci: false
+    supported: false
+  sles15:
+    ci: false
+    supported: false
+  debian10:
+    ci: false
+    supported: false
+  debian11:
+    ci: false
+    supported: false
+  debian12:
+    ci: false
+    supported: false
+  ubuntu1804:
+    ci: false
+    supported: false
+  ubuntu2004:
+    ci: false
+    supported: false
+  ubuntu2204:
+    ci: false
+    supported: false
+  fedora37:
+    ci: false
+    supported: false
+  fedora38:
+    ci: false
+    supported: false
+  alpine3:
+    ci: false
+    supported: false
+  win2012r2:
+    ci: false
+    supported: true
+  win2016:
+    ci: false
+    supported: true
+  win2019:
+    ci: false
+    supported: true
+  win2022:
+    ci: false
+    supported: true
+
+# Molecule
+molecule:
+  driver: vagrant
+  provider: virtualbox
+  requirements:
+    roles_extra:
+      - deitkrachten.windows_features
+  prepare:
+    vars:
+      auto_logon: true
+  converge:
+    vars:
+      windows_dnsserver_domain: example.com
+      windows_dnsserver_network: "192.168.56.0/24"
+      windows_dnsserver_reverse_zone: "56.168.192.in-addr.arpa"
+      windows_dnsserver_zones:
+        - name: "{{ windows_dnsserver_domain }}"
+      windows_dnsserver_reverse_zones:
+        - networkid: "{{ windows_dnsserver_network }}"
+          zone: "{{ windows_dnsserver_reverse_zone }}"
+      windows_dnsserver_records:
+        - name: windc
+          ip: 192.168.56.100
+        - name: vm1
+          ip: 192.168.56.101
+        - name: vm2
+          ip: 192.168.56.102
+        - name: vm3
+          ip: 192.168.56.103
+        - name: vm4
+          ip: 192.168.56.104
+
+# Github
+github:
+  molecule: false

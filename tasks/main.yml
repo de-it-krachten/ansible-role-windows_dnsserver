@@ -1,0 +1,51 @@
+---
+
+- name: Assertions
+  ansible.builtin.assert:
+    that:
+      - windows_dnsserver_domain is defined
+      - windows_dnsserver_network is defined
+      - windows_dnsserver_reverse_zone is defined
+
+- name: Install Windows features  # noqa var-naming[no-role-prefix]
+  ansible.builtin.include_role:
+    name: deitkrachten.windows_features
+  vars:
+    windows_features:
+      name: "{{ windows_dnsserver_features }}"
+      include_management_tools: true
+      include_sub_features: true
+
+- name: Create zones
+  community.windows.win_dns_zone:
+    name: "{{ item.name }}"
+    replication: "{{ item.scope | default('domain') }}"
+    type: "{{ item.type | default('primary') }}"
+    state: "{{ item.state | default('present') }}"
+  become: yes
+  loop: "{{ windows_dnsserver_zones }}"
+
+- name: Create PTR zones
+  community.windows.win_dns_zone:
+    name: "{{ item.network | ansible.utils.ipaddr('revdns') }}"
+    replication: "{{ item.scope | default('domain') }}"
+    type: "{{ item.type | default('primary') }}"
+    state: "{{ item.state | default('present') }}"
+  become: yes
+  loop: "{{ windows_dnsserver_zones }}"
+
+- name: Create A records
+  community.windows.win_dns_record:
+    name: "{{ item.name }}"
+    type: "A"
+    value: "{{ item.ip }}"
+    zone: "{{ item.zone | default(windows_dnsserver_domain) }}"
+  loop: "{{ windows_dnsserver_records }}"
+
+- name: Create matching PTR record
+  community.windows.win_dns_record:
+    name: "{{ item.ip.split('.')[3] }}"
+    type: "PTR"
+    value: "{{ item.name }}.{{ item.zone }}"
+    zone: "{{ item.ptr_zone }}"
+  loop: "{{ windows_dnsserver_records }}"

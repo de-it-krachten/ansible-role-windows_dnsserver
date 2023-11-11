@@ -1,0 +1,20 @@
+---
+
+# Windows features to install
+windows_dnsserver_features:
+  - DNS
+
+# Default domain
+# windows_dnsserver_domain: example.com
+
+# Default network
+# windows_dnsserver_network: "192.168.56.0/24"
+
+# Default reverse zone
+# windows_dnsserver_reverse_zone: "56.168.192.in-addr.arpa"
+
+# List of DNS zones
+windows_dnsserver_zones: []
+
+# List of DNS records
+windows_dnsserver_records: []

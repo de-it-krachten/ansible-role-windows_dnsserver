@@ -1,0 +1,16 @@
+---
+
+- name: Converge
+  hosts: all
+  become: "yes"
+  vars:
+    windows_dnsserver_domain: example.com
+    windows_dnsserver_network: 192.168.56.0/24
+    windows_dnsserver_reverse_zone: 56.168.192.in-addr.arpa
+    windows_dnsserver_zones: "[{'name': '{{ windows_dnsserver_domain }}'}]"
+    windows_dnsserver_reverse_zones: "[{'networkid': '{{ windows_dnsserver_network }}', 'zone': '{{ windows_dnsserver_reverse_zone }}'}]"
+    windows_dnsserver_records: [{'name': 'windc', 'ip': '192.168.56.100'}, {'name': 'vm1', 'ip': '192.168.56.101'}, {'name': 'vm2', 'ip': '192.168.56.102'}, {'name': 'vm3', 'ip': '192.168.56.103'}, {'name': 'vm4', 'ip': '192.168.56.104'}]
+  tasks:
+    - name: Include role 'ansible-role-windows_dnsserver'
+      ansible.builtin.include_role:
+        name: ansible-role-windows_dnsserver
