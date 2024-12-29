@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/de-it-krachten/ansible-role-windows_dnsserver/compare/v1.0.0...v1.1.0) (2024-12-29)
+
+
+### Features
+
+* Update supported platforms & CI ([c229510](https://github.com/de-it-krachten/ansible-role-windows_dnsserver/commit/c22951095c624fc478d726e40b685c59e3937e27))
+
 # 1.0.0 (2024-06-03)
 
 
