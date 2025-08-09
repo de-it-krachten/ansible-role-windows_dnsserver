@@ -17,7 +17,7 @@
       include_sub_features: true
 
 - name: Create zones
-  community.windows.win_dns_zone:
+  ansible.windows.win_dns_zone:
     name: "{{ item.name }}"
     replication: "{{ item.scope | default('domain') }}"
     type: "{{ item.type | default('primary') }}"
@@ -26,7 +26,7 @@
   loop: "{{ windows_dnsserver_zones }}"
 
 - name: Create PTR zones
-  community.windows.win_dns_zone:
+  ansible.windows.win_dns_zone:
     name: "{{ item.network | ansible.utils.ipaddr('revdns') }}"
     replication: "{{ item.scope | default('domain') }}"
     type: "{{ item.type | default('primary') }}"
@@ -35,7 +35,7 @@
   loop: "{{ windows_dnsserver_zones }}"
 
 - name: Create A records
-  community.windows.win_dns_record:
+  ansible.windows.win_dns_record:
     name: "{{ item.name }}"
     type: "A"
     value: "{{ item.ip }}"
@@ -43,7 +43,7 @@
   loop: "{{ windows_dnsserver_records }}"
 
 - name: Create matching PTR record
-  community.windows.win_dns_record:
+  ansible.windows.win_dns_record:
     name: "{{ item.ip.split('.')[3] }}"
     type: "PTR"
     value: "{{ item.name }}.{{ item.zone }}"
