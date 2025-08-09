@@ -16,7 +16,7 @@ None
 #### Collections
 - ansible.windows
 - community.windows
-- community.windows
+- ansible.windows
 
 ## Platforms
 
