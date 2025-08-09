@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/de-it-krachten/ansible-role-windows_dnsserver/compare/v1.1.0...v1.2.0) (2025-08-09)
+
+
+### Features
+
+* Add support for Windows Server 2025 ([f8a55d8](https://github.com/de-it-krachten/ansible-role-windows_dnsserver/commit/f8a55d88bb0909b39326928af9b774bac29596fc))
+
 # [1.1.0](https://github.com/de-it-krachten/ansible-role-windows_dnsserver/compare/v1.0.0...v1.1.0) (2024-12-29)
 
 
