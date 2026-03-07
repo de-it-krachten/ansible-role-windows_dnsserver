@@ -4,6 +4,7 @@
   hosts: all
   become: "yes"
   vars:
+    molecule_driver: "{{ lookup('env', 'MOLECULE_DRIVER_NAME') }}"
     windows_dnsserver_domain: example.com
     windows_dnsserver_network: 192.168.56.0/24
     windows_dnsserver_reverse_zone: 56.168.192.in-addr.arpa

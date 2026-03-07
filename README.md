@@ -16,7 +16,6 @@ None
 #### Collections
 - ansible.windows
 - community.windows
-- ansible.windows
 
 ## Platforms
 
@@ -30,6 +29,7 @@ Supported platforms
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
+
 
 ## Role Variables
 ### defaults/main.yml
@@ -64,6 +64,7 @@ windows_dnsserver_records: []
   hosts: all
   become: 'yes'
   vars:
+    molecule_driver: '{{ lookup(''env'', ''MOLECULE_DRIVER_NAME'') }}'
     windows_dnsserver_domain: example.com
     windows_dnsserver_network: 192.168.56.0/24
     windows_dnsserver_reverse_zone: 56.168.192.in-addr.arpa
