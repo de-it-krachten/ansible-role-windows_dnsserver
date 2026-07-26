@@ -68,9 +68,11 @@ windows_dnsserver_records: []
     windows_dnsserver_domain: example.com
     windows_dnsserver_network: 192.168.56.0/24
     windows_dnsserver_reverse_zone: 56.168.192.in-addr.arpa
-    windows_dnsserver_zones: '[{''name'': ''{{ windows_dnsserver_domain }}''}]'
-    windows_dnsserver_reverse_zones: '[{''networkid'': ''{{ windows_dnsserver_network
-      }}'', ''zone'': ''{{ windows_dnsserver_reverse_zone }}''}]'
+    windows_dnsserver_zones:
+      - name: '{{ windows_dnsserver_domain }}'
+    windows_dnsserver_reverse_zones:
+      - networkid: '{{ windows_dnsserver_network }}'
+        zone: '{{ windows_dnsserver_reverse_zone }}'
     windows_dnsserver_records:
       - name: windc
         ip: 192.168.56.100
